@@ -28,6 +28,6 @@ Example:
 - Issue: ```#1 Create Splash Screen```
 - Pull request title: ```[WIP] #1 Create Splash Screen```
 
-When the task is finished, you have to remove the [WIP] tag and assign the reviewer to **pmiclynx**.
+When the task is finished, you have to remove the [WIP] tag and assign the reviewer to **pmiclynx**. Also make sure your branch is up-to-date with the main branch.
 
 
