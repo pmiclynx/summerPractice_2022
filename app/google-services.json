@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "766836880824",
+    "project_id": "android-summer-practice-2022",
+    "storage_bucket": "android-summer-practice-2022.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:766836880824:android:273e24ccc37dba1de20b4d",
+        "android_client_info": {
+          "package_name": "com.summer.practice.tvtracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "766836880824-a2hk203urvi4p4q0q0hkj83ojg0vab1b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADCyjtqjjS9VC4PeCk-uv3jhOK8JPiwkg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "766836880824-a2hk203urvi4p4q0q0hkj83ojg0vab1b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
