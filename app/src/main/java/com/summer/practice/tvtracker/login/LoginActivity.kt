@@ -11,7 +11,6 @@ import com.summer.practice.tvtracker.databinding.ActivityLoginBinding
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
 
         val binding = ActivityLoginBinding.inflate(layoutInflater)
         val view = binding.root
