@@ -1,6 +1,5 @@
-package com.summer.practice.tvtracker
+package com.summer.practice.tvtracker.details
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -25,8 +24,7 @@ class DetailsActivity : AppCompatActivity() {
         }
 
         binding.backArrow.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+            super.onBackPressed()
         }
     }
 }

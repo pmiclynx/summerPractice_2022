@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DetailsActivity">
+    tools:context=".details.DetailsActivity">
 
     <ImageView
         android:layout_width="wrap_content"
@@ -33,17 +33,16 @@
 
     <ImageView
         android:id="@+id/backArrow"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:contentDescription="@string/back_button"
-        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
         android:clickable="true"
+        android:contentDescription="@string/back_icon"
         android:focusable="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/back"
-        />
+        app:srcCompat="@drawable/arrow_back_24" />
 
     <Button
         android:id="@+id/addToFavoritesButton"
@@ -68,7 +67,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/coverImage"
         app:layout_constraintBottom_toTopOf="@+id/detailsScrollView"
-
         />
 
     <TextView
@@ -80,7 +78,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/title"
         app:layout_constraintBottom_toTopOf="@+id/detailsScrollView"
-
         />
 
     <ScrollView
@@ -97,7 +94,7 @@
             android:id="@+id/innerTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="30sp"
+            android:textSize="18sp"
             android:text="@string/lorem_ipsum_placeholder"
             />
     </ScrollView>
