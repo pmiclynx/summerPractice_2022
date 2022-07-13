@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Toast
 import com.summer.practice.tvtracker.MainActivity
 import com.summer.practice.tvtracker.R
+import com.summer.practice.tvtracker.Registration
 import com.summer.practice.tvtracker.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {
@@ -32,7 +33,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.linkToRegistration.setOnClickListener {
-            val intent = Intent() //TODO change () for (this, RegisterActivity::class.java)
+            val intent = Intent(this,Registration::class.java)
             startActivity(intent)
         }
     }
