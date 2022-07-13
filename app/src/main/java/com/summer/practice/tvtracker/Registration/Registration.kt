@@ -1,4 +1,4 @@
-package com.summer.practice.tvtracker.login
+package com.summer.practice.tvtracker.Registration
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -6,26 +6,36 @@ import android.os.Bundle
 import android.util.Patterns
 import android.widget.Toast
 import com.summer.practice.tvtracker.MainActivity
-import com.summer.practice.tvtracker.Registration.Registration
+import com.summer.practice.tvtracker.R
 import com.summer.practice.tvtracker.databinding.ActivityLoginBinding
+import com.summer.practice.tvtracker.databinding.ActivityRegistrationBinding
+import com.summer.practice.tvtracker.login.LoginActivity
 
-class LoginActivity : AppCompatActivity() {
+class Registration : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val binding = ActivityLoginBinding.inflate(layoutInflater)
+        val binding = ActivityRegistrationBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
 
-        binding.loginButton.setOnClickListener {
-            if (binding.emailField.text.isEmpty() or binding.passwordField.text.isEmpty()) {
+        binding.registerButton.setOnClickListener {
+            if (binding.Password.text.isEmpty() or binding.verifyPassword.text.isEmpty()
+                or binding.username.text.isEmpty() or binding.EmailAddress.text.isEmpty()) {
                 val text = "Please fill all fields!"
                 val duration = Toast.LENGTH_SHORT
                 val toast = Toast.makeText(applicationContext, text, duration)
                 toast.show()
                 return@setOnClickListener
             }
-            val emailText=binding.emailField.getText().toString()
+            if(!(binding.Password.getText().toString().equals(binding.verifyPassword.getText().toString()))){
+                val text = "Passwords aren't matching!"
+                val duration = Toast.LENGTH_SHORT
+                val toast = Toast.makeText(applicationContext, text, duration)
+                toast.show()
+                return@setOnClickListener
+            }
+            val emailText=binding.EmailAddress.getText().toString()
             if(!(Patterns.EMAIL_ADDRESS.matcher(emailText).matches())){
                 val text = "Email invalid"
                 val duration = Toast.LENGTH_SHORT
@@ -35,13 +45,10 @@ class LoginActivity : AppCompatActivity() {
             }
             //TODO authentication
 
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
 
-        binding.linkToRegistration.setOnClickListener {
-            val intent = Intent(this, Registration::class.java)
-            startActivity(intent)
-        }
     }
+
 }

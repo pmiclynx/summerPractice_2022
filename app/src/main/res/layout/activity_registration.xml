@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".Registration">
+    tools:context=".Registration.Registration">
 
     <TextView
         android:id="@+id/textView"
@@ -21,7 +21,8 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+
+        android:id="@+id/username"
         android:layout_width="match_parent"
         android:layout_marginHorizontal="40dp"
         android:layout_height="56dp"
@@ -37,7 +38,7 @@
      />
 
     <EditText
-        android:id="@+id/editTextTextEmailAddress"
+        android:id="@+id/EmailAddress"
         android:layout_width="0dp"
         android:layout_height="56dp"
         android:background="@drawable/input_bg"
@@ -45,15 +46,15 @@
         android:drawablePadding="2dp"
         android:hint="Email"
         android:paddingLeft="10dp"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/username"
+        app:layout_constraintStart_toStartOf="@+id/username"
         tools:ignore="MissingConstraints"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName"
+        app:layout_constraintTop_toBottomOf="@+id/username"
         android:layout_marginTop="16dp"
  />
 
     <EditText
-        android:id="@+id/editTextTextPassword2"
+        android:id="@+id/Password"
         android:layout_width="0dp"
         android:layout_height="56dp"
         android:background="@drawable/input_bg"
@@ -62,15 +63,15 @@
         android:hint="Password"
         android:paddingLeft="10dp"
         android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTextEmailAddress"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextEmailAddress"
+        app:layout_constraintEnd_toEndOf="@+id/EmailAddress"
+        app:layout_constraintStart_toStartOf="@+id/EmailAddress"
         tools:ignore="MissingConstraints"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress"
+        app:layout_constraintTop_toBottomOf="@+id/EmailAddress"
         android:layout_marginTop="16dp"
      />
 
     <EditText
-        android:id="@+id/editTextTextPassword3"
+        android:id="@+id/verifyPassword"
         android:layout_width="0dp"
         android:layout_height="56dp"
         android:background="@drawable/input_bg"
@@ -79,25 +80,25 @@
         android:hint="Verify password"
         android:inputType="textPassword"
         android:paddingLeft="10dp"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTextPassword2"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextPassword2"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword2"
+        app:layout_constraintEnd_toEndOf="@+id/Password"
+        app:layout_constraintStart_toStartOf="@+id/Password"
+        app:layout_constraintTop_toBottomOf="@+id/Password"
         android:layout_marginTop="16dp"
         />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/registerButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/btn_bg"
         android:paddingHorizontal="24dp"
         android:ellipsize="middle"
         android:text="Register"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTextPassword3"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextPassword3"
+        app:layout_constraintEnd_toEndOf="@+id/verifyPassword"
+        app:layout_constraintStart_toStartOf="@+id/verifyPassword"
         app:strokeColor="@color/white"
         tools:ignore="MissingConstraints"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword3"
+        app:layout_constraintTop_toBottomOf="@+id/verifyPassword"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintVertical_bias="0.2"
      />
