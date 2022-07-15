@@ -5,6 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.summer.practice.tvtracker.databinding.FragmentPopularBinding
+import com.summer.practice.tvtracker.databinding.FragmentTopRatedBinding
 
 class TopRatedFragment : Fragment() {
 
@@ -12,7 +15,28 @@ class TopRatedFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_top_rated, container, false)
+        var binding: FragmentTopRatedBinding = FragmentTopRatedBinding.inflate(inflater,container,false)
+
+        val exampleList = generateDummyList(50)
+
+        binding.recyclerViewTopRated.adapter = Adaptor(exampleList, requireContext())
+        binding.recyclerViewTopRated.layoutManager = LinearLayoutManager(context)
+        binding.recyclerViewTopRated.setHasFixedSize(true)
+
+        return binding.root
+    }
+
+    private fun generateDummyList(size: Int): List<ExampleItem> {
+
+        val list = ArrayList<ExampleItem>()
+
+        for (i in 0 until size) {
+            val drawable = R.drawable.ic_baseline_local_movies_24
+
+            val item = ExampleItem(drawable, "#$i Top Rated Movie")
+            list += item
+        }
+
+        return list
     }
 }
