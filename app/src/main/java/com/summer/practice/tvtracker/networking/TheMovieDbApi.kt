@@ -5,9 +5,9 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 const val baseUrl = "https://api.themoviedb.org/3/"
-const val apiKey = "0a416fc6c49f4a04db6e3bd398ef8579"
+private const val apiKey = "0a416fc6c49f4a04db6e3bd398ef8579"
 
-interface Api {
+interface TheMovieDbApi {
     @GET("tv/popular")
     fun getPopularList(
         @Query("page") page: Int = 1,
