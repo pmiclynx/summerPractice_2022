@@ -7,15 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.cardview.widget.CardView
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.summer.practice.tvtracker.details.DetailsActivity
 
 class Adaptor(private val exampleList: List<ExampleItem>, private val context: Context) : RecyclerView.Adapter<Adaptor.ExampleViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExampleViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.example_item,parent,false)
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_movie,parent,false)
 
         return ExampleViewHolder(itemView, context)
     }
@@ -30,8 +28,8 @@ class Adaptor(private val exampleList: List<ExampleItem>, private val context: C
     override fun getItemCount() = exampleList.size
 
     class ExampleViewHolder(val itemView: View, var context: Context) : RecyclerView.ViewHolder(itemView) {
-        val imageView: ImageView = itemView.findViewById(R.id.image_view)
-        val titleView: TextView = itemView.findViewById(R.id.title_view)
+        val imageView: ImageView = itemView.findViewById(R.id.imageViewMovie)
+        val titleView: TextView = itemView.findViewById(R.id.textViewMovieTitle)
         init {
             itemView.setOnClickListener {
                 val intent = Intent(context, DetailsActivity::class.java)
