@@ -6,10 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.summer.practice.tvtracker.networking.Movies
-import com.summer.practice.tvtracker.networking.MoviesRepository
-import com.summer.practice.tvtracker.networking.createPathList
-import com.summer.practice.tvtracker.networking.makeToast
+import com.summer.practice.tvtracker.networking.*
 
 class TopRatedFragment: Fragment() {
 
@@ -17,14 +14,14 @@ class TopRatedFragment: Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        MoviesRepository.getTopRatedList(
+        MoviesRepository(PathInterceptor("top_rated")).getList(
             onSuccess = ::onPopularMoviesFetched,
             onError = ::onError,
         )
         return inflater.inflate(R.layout.fragment_top_rated, container, false)
     }
 
-    private fun onPopularMoviesFetched(movies: List<Movies>) {
+    private fun onPopularMoviesFetched(movies: List<Movie>) {
         val pathList = createPathList(movies)
         Log.d("movies:", movies[0].toString())
         Log.d("pathList:", pathList.toString())

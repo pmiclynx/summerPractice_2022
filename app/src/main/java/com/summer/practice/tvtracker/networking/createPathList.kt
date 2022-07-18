@@ -1,7 +1,6 @@
 package com.summer.practice.tvtracker.networking
 
-fun createPathList(movies: List<Movies>): List<Movies> {
-    val imageBaseUrl = "https://image.tmdb.org/t/p/w500"
+fun createPathList(movies: List<Movie>): List<Movie> {
     val pathList = movies.map {
         it.copy(backdropPath = imageBaseUrl + it.backdropPath)
     }
