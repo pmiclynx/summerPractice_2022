@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".Registration.Registration">
+    tools:context=".registration.RegistrationActivity">
 
     <TextView
         android:id="@+id/textView"
@@ -38,7 +38,7 @@
      />
 
     <EditText
-        android:id="@+id/EmailAddress"
+        android:id="@+id/emailAddress"
         android:layout_width="0dp"
         android:layout_height="56dp"
         android:background="@drawable/input_bg"
@@ -54,7 +54,7 @@
  />
 
     <EditText
-        android:id="@+id/Password"
+        android:id="@+id/password"
         android:layout_width="0dp"
         android:layout_height="56dp"
         android:background="@drawable/input_bg"
@@ -63,10 +63,10 @@
         android:hint="Password"
         android:paddingLeft="10dp"
         android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="@+id/EmailAddress"
-        app:layout_constraintStart_toStartOf="@+id/EmailAddress"
+        app:layout_constraintEnd_toEndOf="@+id/emailAddress"
+        app:layout_constraintStart_toStartOf="@+id/emailAddress"
         tools:ignore="MissingConstraints"
-        app:layout_constraintTop_toBottomOf="@+id/EmailAddress"
+        app:layout_constraintTop_toBottomOf="@+id/emailAddress"
         android:layout_marginTop="16dp"
      />
 
@@ -80,9 +80,9 @@
         android:hint="Verify password"
         android:inputType="textPassword"
         android:paddingLeft="10dp"
-        app:layout_constraintEnd_toEndOf="@+id/Password"
-        app:layout_constraintStart_toStartOf="@+id/Password"
-        app:layout_constraintTop_toBottomOf="@+id/Password"
+        app:layout_constraintEnd_toEndOf="@+id/password"
+        app:layout_constraintStart_toStartOf="@+id/password"
+        app:layout_constraintTop_toBottomOf="@+id/password"
         android:layout_marginTop="16dp"
         />
 
