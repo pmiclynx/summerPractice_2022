@@ -9,43 +9,50 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
         android:text="@string/email"
         app:layout_constraintBottom_toTopOf="@+id/emailField"
-        app:layout_constraintStart_toStartOf="@+id/emailField"
-        />
+        app:layout_constraintStart_toStartOf="@+id/emailField" />
 
     <EditText
         android:id="@+id/emailField"
-        android:layout_width="240dp"
-        android:layout_height="65dp"
+        android:layout_height="56dp"
+        android:layout_marginHorizontal="70dp"
         android:autofillHints="emailAddress"
-        android:ems="10"
+        android:background="@drawable/input_bg"
         android:hint="@string/email_hint"
         android:inputType="textEmailAddress"
+        android:paddingLeft="10dp"
         android:textColorHint="#78909C"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.35" />
+        app:layout_constraintVertical_bias="0.30"
+        android:layout_width="0dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
         android:text="@string/password"
         app:layout_constraintBottom_toTopOf="@id/passwordField"
-        app:layout_constraintStart_toStartOf="@id/passwordField"
-        />
+        app:layout_constraintStart_toStartOf="@id/passwordField" />
 
     <EditText
         android:id="@+id/passwordField"
-        android:layout_width="240dp"
-        android:layout_height="65dp"
+        android:layout_width="0dp"
+        android:layout_marginHorizontal="70dp"
+        android:layout_height="56dp"
         android:autofillHints="password"
+        android:background="@drawable/input_bg"
         android:ems="10"
         android:hint="@string/password_hint"
         android:inputType="textPassword"
+        android:paddingLeft="10dp"
         android:textColorHint="#78909C"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -56,12 +63,12 @@
         android:id="@+id/loginButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/btn_bg"
         android:text="@string/sign_in"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/emailField"
-        />
+        app:layout_constraintTop_toTopOf="@id/emailField" />
 
     <TextView
         android:id="@+id/linkToRegistration"
