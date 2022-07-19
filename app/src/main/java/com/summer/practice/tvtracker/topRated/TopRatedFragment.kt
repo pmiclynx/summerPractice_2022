@@ -1,4 +1,4 @@
-package com.summer.practice.tvtracker.popular
+package com.summer.practice.tvtracker.topRated
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,36 +8,34 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.summer.practice.tvtracker.R
-import com.summer.practice.tvtracker.databinding.FragmentPopularBinding
+import com.summer.practice.tvtracker.databinding.FragmentTopRatedBinding
 import com.summer.practice.tvtracker.details.DetailsActivity
-import com.summer.practice.tvtracker.topRated.Movie
+import com.summer.practice.tvtracker.popular.Adapter
 
 
-class PopularFragment : Fragment() {
 
-    private lateinit var binding: FragmentPopularBinding
+class TopRatedFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        var binding: FragmentTopRatedBinding = FragmentTopRatedBinding.inflate(inflater,container,false)
 
-        binding = FragmentPopularBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+        val exampleList = generateDummyList(50)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        binding.recyclerViewPopular.layoutManager = LinearLayoutManager(context)
-        binding.recyclerViewPopular.adapter = Adapter(
-            generateDummyList(20),
+        binding.recyclerViewTopRated.adapter = Adapter(
+            exampleList,
             object: Adapter.ItemClickListener {
-                override fun onItemClicked(id: Int) {
-                    startActivity(Intent(context, DetailsActivity::class.java))
-                }
+            override fun onItemClicked(id: Int) {
+                startActivity(Intent(context, DetailsActivity::class.java))
+            }
 
-            })
+        })
+        binding.recyclerViewTopRated.layoutManager = LinearLayoutManager(context)
+        binding.recyclerViewTopRated.setHasFixedSize(true)
+
+        return binding.root
     }
 
     private fun generateDummyList(size: Int): List<Movie> {
@@ -49,7 +47,7 @@ class PopularFragment : Fragment() {
 
             val item = Movie(
                 id = i,
-                title = "Title $i",
+                title = "Top Rated $i",
                 imageUrl = "https://image.tmdb.org/t/p/w500/bQLrHIRNEkE3PdIWQrZHynQZazu.jpg?api_key=563e3b53b3c3a7da6ceae87959d74162"
             )
             list += item
