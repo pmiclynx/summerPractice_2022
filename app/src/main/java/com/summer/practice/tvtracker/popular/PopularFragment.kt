@@ -30,9 +30,9 @@ class PopularFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.recyclerViewPopular.layoutManager = LinearLayoutManager(context)
-        binding.recyclerViewPopular.adapter = Adapter(
+        binding.recyclerViewPopular.adapter = MovieAdapter(
             generateDummyList(20),
-            object: Adapter.ItemClickListener {
+            object: MovieAdapter.ItemClickListener {
                 override fun onItemClicked(id: Int) {
                     startActivity(Intent(context, DetailsActivity::class.java))
                 }

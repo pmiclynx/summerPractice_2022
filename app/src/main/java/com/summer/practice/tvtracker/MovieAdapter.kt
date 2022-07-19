@@ -7,11 +7,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.summer.practice.tvtracker.databinding.ItemMovieSimpleBinding
 import com.summer.practice.tvtracker.topRated.Movie
 
-class Adapter(
+class MovieAdapter(
     private val list: List<Movie>,
     private val itemClickListener: ItemClickListener
 ) :
-    RecyclerView.Adapter<Adapter.MovieViewHolder>() {
+    RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
     private val items: MutableList<Movie> = list.toMutableList()
 
