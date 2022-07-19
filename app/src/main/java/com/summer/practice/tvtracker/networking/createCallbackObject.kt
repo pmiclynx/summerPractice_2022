@@ -4,11 +4,10 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class CreateCallbackObject(
-    private val onSuccess: (movies: List<Movies>) -> Unit,
-    private val onError: (String) -> Unit
-){
-    fun createObject() = object: Callback<Results> {
+    fun createCallBackObject(
+        onSuccess: (movies: List<Movie>) -> Unit,
+        onError: (String) -> Unit
+    ) = object: Callback<Results> {
         override fun onResponse(call: Call<Results>, response: Response<Results>) {
             if (!response.isSuccessful) {
                 onError.invoke("Unsuccessful Api call")
@@ -27,4 +26,3 @@ class CreateCallbackObject(
             onError.invoke(t.toString())
         }
     }
-}
