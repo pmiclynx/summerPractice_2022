@@ -5,17 +5,18 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Patterns
 import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuth
 import com.summer.practice.tvtracker.MainActivity
 import com.summer.practice.tvtracker.databinding.ActivityRegistrationBinding
 
 class RegistrationActivity : AppCompatActivity() {
+    private lateinit var firebaseAuth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         val binding = ActivityRegistrationBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-
+        firebaseAuth = FirebaseAuth.getInstance()
         binding.registerButton.setOnClickListener {
             if (binding.password.text.isEmpty() or binding.verifyPassword.text.isEmpty()
                 or binding.username.text.isEmpty() or binding.emailAddress.text.isEmpty()) {
@@ -41,10 +42,15 @@ class RegistrationActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
             //TODO authentication
-
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
+             firebaseAuth.createUserWithEmailAndPassword(binding.emailAddress.text.toString(),binding.password.text.toString()).addOnCompleteListener {
+                 if(it.isSuccessful){
+                 val intent = Intent(this, MainActivity::class.java)
+                 startActivity(intent)
+                 finish()
+                 }
+                 else
+                     Toast.makeText(this, it.exception.toString(),Toast.LENGTH_SHORT).show()
+             }
         }
 
     }
