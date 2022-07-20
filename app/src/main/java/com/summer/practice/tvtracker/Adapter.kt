@@ -1,17 +1,17 @@
-package com.summer.practice.tvtracker.popular
+package com.summer.practice.tvtracker
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.summer.practice.tvtracker.databinding.ItemMovieSimpleBinding
-import com.summer.practice.tvtracker.topRated.Movie
+import com.summer.practice.tvtracker.networking.Movie
 
 class Adapter(
-    private val list: List<Movie>,
+    list: List<Movie>,
     private val itemClickListener: ItemClickListener
-) :
-    RecyclerView.Adapter<Adapter.MovieViewHolder>() {
+): RecyclerView.Adapter<Adapter.MovieViewHolder>() {
 
     private val items: MutableList<Movie> = list.toMutableList()
 
@@ -19,21 +19,19 @@ class Adapter(
         fun onItemClicked(id: Int)
     }
 
-    class MovieViewHolder(private val binding: ItemMovieSimpleBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-
+    class MovieViewHolder(private val binding: ItemMovieSimpleBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(
             movie: Movie,
             itemClickListener: ItemClickListener,
         ) {
-            binding.textViewMovieTitle.text = movie.title
+            binding.textViewMovieTitle.text = movie.name
 
-            binding.root.setOnClickListener(object : View.OnClickListener {
-                override fun onClick(v: View?) {
-                    itemClickListener.onItemClicked(movie.id)
-
-                }
-            })
+            Glide.with(itemView)
+                .load(movie.backdropPath)
+                .transform(CenterCrop())
+                .placeholder(R.drawable.series_image)
+                .into(binding.imageViewMovie)
+            binding.root.setOnClickListener { itemClickListener.onItemClicked(movie.id) }
         }
     }
 
@@ -43,15 +41,12 @@ class Adapter(
         )
     }
 
-
-
     override fun getItemCount(): Int {
         return items.size
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         val popularItem = items[position]
-
         holder.bind(popularItem,itemClickListener)
     }
 }
