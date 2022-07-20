@@ -1,7 +1,6 @@
 package com.summer.practice.tvtracker.details
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -35,7 +34,6 @@ class DetailsActivity : AppCompatActivity() {
 
         binding.backArrow.setOnClickListener {
             super.onBackPressed()
-            Log.d("??????????????????", "????????????????????")
         }
 
         MoviesDetailRepository(id).getDetail(
