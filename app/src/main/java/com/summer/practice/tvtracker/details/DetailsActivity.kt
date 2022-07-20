@@ -1,24 +1,24 @@
 package com.summer.practice.tvtracker.details
 
 import android.os.Bundle
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
-import com.summer.practice.tvtracker.R
 import com.summer.practice.tvtracker.databinding.ActivityDetailsBinding
 import com.summer.practice.tvtracker.networking.*
 
 
 class DetailsActivity : AppCompatActivity() {
+    lateinit var binding: ActivityDetailsBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val intent = intent
         val id = intent.getIntExtra("id", 0)
 
-        val binding = ActivityDetailsBinding.inflate(layoutInflater)
+        binding = ActivityDetailsBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
 
@@ -48,21 +48,18 @@ class DetailsActivity : AppCompatActivity() {
 
     private fun onPopularMoviesFetched(detail: Detail) {
         val pathList = createPathList(detail)
-        val title = findViewById<TextView>(R.id.title)
-        title.text = pathList.name
-        val rating = findViewById<TextView>(R.id.rating)
-        rating.text = pathList.voteAverage.toString()
-        val overview = findViewById<TextView>(R.id.innerTextView)
-        overview.text = pathList.overview
+        binding.title.text = pathList.name
+        binding.rating.text = pathList.voteAverage.toString()
+        binding.innerTextView.text = pathList.overview
 
-        Glide.with(this)
+        Glide.with(binding.root)
             .load(pathList.backdropPath)
             .transform(CenterCrop())
-            .into(findViewById(R.id.backdropImage))
+            .into(binding.backdropImage)
 
         Glide.with(this)
             .load(pathList.posterPath)
             .transform(CenterCrop())
-            .into(findViewById(R.id.coverImage))
+            .into(binding.coverImage)
     }
 }
