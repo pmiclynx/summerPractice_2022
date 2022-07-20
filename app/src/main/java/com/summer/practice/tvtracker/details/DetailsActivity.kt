@@ -19,8 +19,6 @@ class DetailsActivity : AppCompatActivity() {
         val intent = intent
         val id = intent.getIntExtra("id", 0)
 
-        Log.d("id:::::::::", id.toString())
-
         val binding = ActivityDetailsBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
@@ -37,9 +35,10 @@ class DetailsActivity : AppCompatActivity() {
 
         binding.backArrow.setOnClickListener {
             super.onBackPressed()
+            Log.d("??????????????????", "????????????????????")
         }
 
-        MoviesDetailRepository(66732).getDetail(
+        MoviesDetailRepository(id).getDetail(
             onSuccess = ::onPopularMoviesFetched,
             onError = ::onError,
         )
@@ -51,21 +50,21 @@ class DetailsActivity : AppCompatActivity() {
 
     private fun onPopularMoviesFetched(detail: Detail) {
         val pathList = createPathList(detail)
-        val binding = ActivityDetailsBinding.inflate(layoutInflater)
-        binding.title.text = pathList.name
-        binding.rating.text = pathList.voteAverage.toString()
-        binding.innerTextView.text = pathList.overview
+        val title = findViewById<TextView>(R.id.title)
+        title.text = pathList.name
+        val rating = findViewById<TextView>(R.id.rating)
+        rating.text = pathList.voteAverage.toString()
+        val overview = findViewById<TextView>(R.id.innerTextView)
+        overview.text = pathList.overview
 
-        Glide.with(binding.root)
+        Glide.with(this)
             .load(pathList.backdropPath)
             .transform(CenterCrop())
-            .into(binding.backdropImage)
+            .into(findViewById(R.id.backdropImage))
 
-        Glide.with(binding.root)
+        Glide.with(this)
             .load(pathList.posterPath)
             .transform(CenterCrop())
-            .into(binding.coverImage)
-
-        setContentView(binding.root)
+            .into(findViewById(R.id.coverImage))
     }
 }
