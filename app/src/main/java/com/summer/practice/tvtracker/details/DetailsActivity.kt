@@ -14,7 +14,6 @@ import com.summer.practice.tvtracker.db.findInFavorites
 import com.summer.practice.tvtracker.networking.*
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
-import kotlin.properties.Delegates
 
 
 class DetailsActivity : AppCompatActivity() {
