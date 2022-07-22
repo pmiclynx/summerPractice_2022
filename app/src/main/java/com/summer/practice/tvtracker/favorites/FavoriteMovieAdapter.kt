@@ -1,14 +1,18 @@
 package com.summer.practice.tvtracker.favorites
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.summer.practice.tvtracker.databinding.ItemFavoriteMovieBinding
+import com.summer.practice.tvtracker.db.findInFavorites
 
 class FavoriteMovieAdapter(
-    private val list: List<FavoriteMovie>,
+    list: List<FavoriteMovie>,
     private val itemClickListener: ItemClickListener
 ) : RecyclerView.Adapter<FavoriteMovieAdapter.MovieViewHolder>() {
 
@@ -29,23 +33,36 @@ class FavoriteMovieAdapter(
             itemClickListener: ItemClickListener,
             itemDeleteListener: ItemDeleteListener
         ) {
+            val db = Firebase.firestore
+            val auth = FirebaseAuth.getInstance()
+
             binding.textViewMovieTitle.text = movie.title
 
             Glide.with(binding.root).load(movie.imageUrl).into(binding.imageViewMovie)
 
-            binding.root.setOnClickListener(object : View.OnClickListener {
-                override fun onClick(v: View?) {
-                    itemClickListener.onItemClicked(movie.id)
-                }
-            })
+            binding.root.setOnClickListener { itemClickListener.onItemClicked(movie.id) }
+
+            fun deleteDocumentFromDataBase(documentID: String){
+                db.collection("users")
+                    .document(auth.uid.toString())
+                    .collection("favorites")
+                    .document(documentID)
+                    .delete()
+            }
 
             binding.textViewDelete.setOnClickListener {
+                findInFavorites(
+                    db = db,
+                    userId = auth.uid.toString(),
+                    idToFund = movie.id,
+                    onFound = ::deleteDocumentFromDataBase
+                )
                 itemDeleteListener.onItemDeleted(movie)
             }
 
-            binding.textViewDate.text=movie.dateAdded.toString()
-        }
+            binding.textViewDate.text = movie.dateAdded
 
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {

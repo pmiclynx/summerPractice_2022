@@ -2,8 +2,6 @@ package com.summer.practice.tvtracker.details
 
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
@@ -12,25 +10,26 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.summer.practice.tvtracker.databinding.ActivityDetailsBinding
+import com.summer.practice.tvtracker.db.findInFavorites
 import com.summer.practice.tvtracker.networking.*
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import kotlin.properties.Delegates
 
 
 class DetailsActivity : AppCompatActivity() {
+    private lateinit var backDropUrl: String
     private lateinit var binding: ActivityDetailsBinding
+    private var id: Int = 0
     private val auth = FirebaseAuth.getInstance()
     private val db = Firebase.firestore
-
-    private lateinit var backDropUrl: String
-    private lateinit var posterUrl: String
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val intent = intent
-        val id = intent.getIntExtra("id", 0)
+        id = intent.getIntExtra("id", 0)
 
         binding = ActivityDetailsBinding.inflate(layoutInflater)
         val view = binding.root
@@ -42,7 +41,6 @@ class DetailsActivity : AppCompatActivity() {
                 "id" to id.toString(),
                 "title" to binding.title.text,
                 "backdropUrl" to backDropUrl,
-                "posterUrl" to posterUrl,
                 "dateTimeStamp" to LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd")).toString()
             )
 
@@ -52,17 +50,12 @@ class DetailsActivity : AppCompatActivity() {
                     .collection("favorites")
                     .add(favorite)
                     .addOnSuccessListener {
-                        Log.d("TAG", "DocumentSnapshot added with ID:")
+                        makeToast(this, "Saved to favorites")
                     }
-                    .addOnFailureListener { e ->
-                        Log.w("TAG", "Error adding document", e)
+                    .addOnFailureListener {
+                        makeToast(this, "Error adding document")
                     }
             }
-
-            val text = "Saved to favorites"
-            val duration = Toast.LENGTH_SHORT
-            val toast = Toast.makeText(applicationContext, text, duration)
-            toast.show()
         }
 
         binding.backArrow.setOnClickListener {
@@ -86,7 +79,6 @@ class DetailsActivity : AppCompatActivity() {
         binding.innerTextView.text = pathList.overview
 
         backDropUrl = pathList.backdropPath.toString()
-        posterUrl = pathList.posterPath.toString()
 
         Glide.with(binding.root)
             .load(pathList.backdropPath)
@@ -97,5 +89,21 @@ class DetailsActivity : AppCompatActivity() {
             .load(pathList.posterPath)
             .transform(CenterCrop())
             .into(binding.coverImage)
+
+        disableButtonIfAlreadyFavorite()
     }
+
+    private fun disableButtonIfAlreadyFavorite() {
+        findInFavorites(
+            db = db,
+            userId = auth.uid.toString(),
+            idToFund = id,
+            onFound = ::disableAddToFavoritesButton
+        )
+    }
+
+    private fun disableAddToFavoritesButton(document: String) {
+        binding.addToFavoritesButton.isEnabled = false
+    }
+
 }
