@@ -97,12 +97,9 @@ class DetailsActivity : AppCompatActivity() {
             db = db,
             userId = auth.uid.toString(),
             idToFund = id,
-            onFound = ::disableAddToFavoritesButton
+            onFound = {
+                binding.addToFavoritesButton.isEnabled = false
+            }
         )
     }
-
-    private fun disableAddToFavoritesButton(document: String) {
-        binding.addToFavoritesButton.isEnabled = false
-    }
-
 }

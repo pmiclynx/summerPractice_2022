@@ -27,6 +27,7 @@ class FavoriteMovieAdapter(
 
     class MovieViewHolder(private val binding: ItemFavoriteMovieBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
         fun bind(
             movie: FavoriteMovie,
             itemClickListener: ItemClickListener,
@@ -41,26 +42,23 @@ class FavoriteMovieAdapter(
 
             binding.root.setOnClickListener { itemClickListener.onItemClicked(movie.id) }
 
-            fun deleteDocumentFromDataBase(documentID: String){
-                db.collection("users")
-                    .document(auth.uid.toString())
-                    .collection("favorites")
-                    .document(documentID)
-                    .delete()
-            }
-
             binding.textViewDelete.setOnClickListener {
                 findInFavorites(
                     db = db,
                     userId = auth.uid.toString(),
                     idToFund = movie.id,
-                    onFound = ::deleteDocumentFromDataBase
+                    onFound = {
+                        db.collection("users")
+                            .document(auth.uid.toString())
+                            .collection("favorites")
+                            .document(it)
+                            .delete()
+                    }
                 )
                 itemDeleteListener.onItemDeleted(movie)
             }
 
             binding.textViewDate.text = movie.dateAdded
-
         }
     }
 
