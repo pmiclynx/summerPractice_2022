@@ -4,14 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import com.summer.practice.tvtracker.databinding.ItemFavoriteMovieBinding
-import com.summer.practice.tvtracker.db.findInFavorites
+import com.summer.practice.tvtracker.db.deleteFromFavorites
+import com.summer.practice.tvtracker.db.findFavorites
 
 class FavoriteMovieAdapter(
-    list: List<FavoriteMovie>,
+    private val list: List<FavoriteMovie>,
     private val itemClickListener: ItemClickListener
 ) : RecyclerView.Adapter<FavoriteMovieAdapter.MovieViewHolder>() {
 
@@ -33,9 +31,6 @@ class FavoriteMovieAdapter(
             itemClickListener: ItemClickListener,
             itemDeleteListener: ItemDeleteListener
         ) {
-            val db = Firebase.firestore
-            val auth = FirebaseAuth.getInstance()
-
             binding.textViewMovieTitle.text = movie.title
 
             Glide.with(binding.root).load(movie.imageUrl).into(binding.imageViewMovie)
@@ -43,17 +38,9 @@ class FavoriteMovieAdapter(
             binding.root.setOnClickListener { itemClickListener.onItemClicked(movie.id) }
 
             binding.textViewDelete.setOnClickListener {
-                findInFavorites(
-                    db = db,
-                    userId = auth.uid.toString(),
-                    idToFund = movie.id,
-                    onFound = {
-                        db.collection("users")
-                            .document(auth.uid.toString())
-                            .collection("favorites")
-                            .document(it)
-                            .delete()
-                    }
+                findFavorites(
+                    id = movie.id,
+                    onFound = ::deleteFromFavorites
                 )
                 itemDeleteListener.onItemDeleted(movie)
             }
@@ -79,7 +66,6 @@ class FavoriteMovieAdapter(
             }
 
         })
-
     }
 
     override fun getItemCount(): Int {

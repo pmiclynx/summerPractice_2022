@@ -7,17 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import com.summer.practice.tvtracker.databinding.FragmentFavoritesBinding
+import com.summer.practice.tvtracker.db.getFavoritesCollection
 import com.summer.practice.tvtracker.details.DetailsActivity
 import com.summer.practice.tvtracker.networking.makeToast
 
 class FavoritesFragment: Fragment() {
     private lateinit var binding: FragmentFavoritesBinding
-    private val db = Firebase.firestore
-    private val auth = FirebaseAuth.getInstance()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,9 +44,7 @@ class FavoritesFragment: Fragment() {
         onSuccess: (List<FavoriteMovie>) -> Unit
     ) {
         val list= mutableListOf<FavoriteMovie>()
-        db.collection("users")
-            .document(auth.uid.toString())
-            .collection("favorites")
+        getFavoritesCollection()
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
