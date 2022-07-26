@@ -8,6 +8,8 @@ import com.bumptech.glide.Glide
 import com.summer.practice.tvtracker.R
 import com.summer.practice.tvtracker.databinding.ItemFavoriteMovieBinding
 import com.summer.practice.tvtracker.databinding.ItemLastFavoriteMovieBinding
+import com.summer.practice.tvtracker.db.deleteFromFavorites
+import com.summer.practice.tvtracker.db.findFavorites
 
 class FavoriteMovieAdapter(
     private val list: List<FavoriteMovie>,
@@ -42,19 +44,18 @@ class FavoriteMovieAdapter(
 
             Glide.with(binding.root).load(movie.imageUrl).into(binding.imageViewMovie)
 
-            binding.root.setOnClickListener(object : View.OnClickListener {
-                override fun onClick(v: View?) {
-                    itemClickListener.onItemClicked(movie.id)
-                }
-            })
+            binding.root.setOnClickListener { itemClickListener.onItemClicked(movie.id) }
 
             binding.textViewDelete.setOnClickListener {
+                findFavorites(
+                    id = movie.id,
+                    onFound = ::deleteFromFavorites
+                )
                 itemDeleteListener.onItemDeleted(movie)
             }
 
-            binding.textViewDate.text=movie.dateAdded.toString()
+            binding.textViewDate.text = movie.dateAdded
         }
-
     }
     class LastMovieViewHolder(view: View, private val binding: ItemLastFavoriteMovieBinding) :
         GenericViewHolder(binding.root) {
@@ -110,7 +111,6 @@ class FavoriteMovieAdapter(
             }
 
         })
-
     }
 
     override fun getItemCount(): Int {
