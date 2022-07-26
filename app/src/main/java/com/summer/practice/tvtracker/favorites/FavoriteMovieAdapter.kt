@@ -10,7 +10,7 @@ import com.summer.practice.tvtracker.databinding.ItemFavoriteMovieBinding
 import com.summer.practice.tvtracker.databinding.LastItemFavoriteMovieBinding
 
 class FavoriteMovieAdapter(
-    private val list: List<FavoriteMovie>,
+    private val list: List<FavoriteMovie> ,
     private val itemClickListener: ItemClickListener
 ) : RecyclerView.Adapter<FavoriteMovieAdapter.GenericViewHolder>() {
 
