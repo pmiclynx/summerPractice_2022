@@ -11,6 +11,7 @@
         android:clipToPadding="false"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/item_movie"/>
+        tools:listitem="@layout/item_movie"
+        android:layout_marginBottom="100dp"/>
 
 </FrameLayout>
