@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.summer.practice.tvtracker.R
 import com.summer.practice.tvtracker.databinding.ItemFavoriteMovieBinding
 import com.summer.practice.tvtracker.databinding.ItemLastFavoriteMovieBinding
@@ -52,7 +53,7 @@ class FavoriteMovieAdapter(
         ) {
             binding.textViewMovieTitle.text = movie.title
 
-            Glide.with(binding.root).load(movie.imageUrl).into(binding.imageViewMovie)
+            Glide.with(binding.root).load(movie.imageUrl).transform(CenterCrop()).placeholder(R.drawable.series_image).into(binding.imageViewMovie)
 
             binding.root.setOnClickListener { itemClickListener.onItemClicked(movie.id) }
 
@@ -72,7 +73,7 @@ class FavoriteMovieAdapter(
         ) {
             binding.textViewMovieTitle.text = movie.title
 
-            Glide.with(binding.root).load(movie.imageUrl).into(binding.imageViewMovie)
+            Glide.with(binding.root).load(movie.imageUrl).transform(CenterCrop()).placeholder(R.drawable.series_image).into(binding.imageViewMovie)
 
             binding.root.setOnClickListener(object : View.OnClickListener {
                 override fun onClick(v: View?) {
