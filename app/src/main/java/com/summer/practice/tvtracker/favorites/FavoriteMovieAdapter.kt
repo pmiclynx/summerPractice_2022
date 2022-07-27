@@ -30,6 +30,16 @@ class FavoriteMovieAdapter(
         RecyclerView.ViewHolder(itemView!!) {
         abstract fun bind(movie: FavoriteMovie, itemClickListener: ItemClickListener,itemDeleteListener: ItemDeleteListener)
 
+        protected fun deleteFromFavorites(
+            movie: FavoriteMovie,
+            itemDeleteListener: ItemDeleteListener
+        ) {
+            findFavorites(
+                id = movie.id,
+                onFound = ::deleteFromFavorites
+            )
+            itemDeleteListener.onItemDeleted(movie)
+        }
     }
 
     class MovieViewHolder(view: View, private val binding: ItemFavoriteMovieBinding) :
@@ -47,11 +57,7 @@ class FavoriteMovieAdapter(
             binding.root.setOnClickListener { itemClickListener.onItemClicked(movie.id) }
 
             binding.textViewDelete.setOnClickListener {
-                findFavorites(
-                    id = movie.id,
-                    onFound = ::deleteFromFavorites
-                )
-                itemDeleteListener.onItemDeleted(movie)
+                deleteFromFavorites(movie, itemDeleteListener)
             }
 
             binding.textViewDate.text = movie.dateAdded
@@ -75,7 +81,9 @@ class FavoriteMovieAdapter(
             })
 
             binding.textViewDelete.setOnClickListener {
-                itemDeleteListener.onItemDeleted(movie)
+                deleteFromFavorites(
+                    movie, itemDeleteListener
+                )
             }
 
             binding.textViewDate.text = movie.dateAdded.toString()

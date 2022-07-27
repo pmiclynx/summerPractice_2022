@@ -60,8 +60,9 @@
 
     <TextView
         android:id="@+id/title"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="25dp"
         android:text="@string/title_placeholder"
         app:layout_constraintStart_toEndOf="@+id/coverImage"
         app:layout_constraintEnd_toEndOf="parent"
@@ -71,8 +72,9 @@
 
     <TextView
         android:id="@+id/rating"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="25dp"
         android:text="@string/rating_placeholder"
         app:layout_constraintStart_toEndOf="@+id/coverImage"
         app:layout_constraintEnd_toEndOf="parent"
