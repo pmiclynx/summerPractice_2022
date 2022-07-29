@@ -44,7 +44,7 @@ class FavoritesFragment : Fragment() {
     private fun getData(
         onSuccess: (List<FavoriteMovie>) -> Unit
     ) {
-        MovieRepositoryFactory.createRepository()
+        MovieRepositoryFactory.repository
             .getFavorites(
                 onSuccess = onSuccess,
                 onError = {

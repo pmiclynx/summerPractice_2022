@@ -23,7 +23,7 @@ class TopRatedFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        MovieRepositoryFactory.createRepository().getMovies(
+        MovieRepositoryFactory.repository.getMovies(
             "top_rated",
             onSuccess = ::onPopularMoviesFetched,
             onError = ::onError

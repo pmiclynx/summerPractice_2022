@@ -38,7 +38,7 @@ class FavoriteMovieAdapter(
             movie: FavoriteMovie,
             itemDeleteListener: ItemDeleteListener
         ) {
-            MovieRepositoryFactory.createRepository()
+            MovieRepositoryFactory.repository
                 .deleteFavorite(movie.id.toString())
 
             itemDeleteListener.onItemDeleted(movie)

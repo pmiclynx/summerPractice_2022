@@ -38,7 +38,7 @@ class DetailsActivity : AppCompatActivity() {
                 dateAdded = ""
             )
 
-            MovieRepositoryFactory.createRepository().addFavorite(
+            MovieRepositoryFactory.repository.addFavorite(
                 favoriteMovie = favoriteMovie,
                 onSuccess = {
                     disableAddToFavoritesButton()
@@ -52,7 +52,7 @@ class DetailsActivity : AppCompatActivity() {
             super.onBackPressed()
         }
 
-        MovieRepositoryFactory.createRepository().getDetail(
+        MovieRepositoryFactory.repository.getDetail(
             id = id,
             onSuccess = ::onPopularMoviesFetched,
             onError = ::onError,
@@ -85,7 +85,7 @@ class DetailsActivity : AppCompatActivity() {
     }
 
     private fun disableButtonIfAlreadyFavorite() {
-        MovieRepositoryFactory.createRepository().findFavorite(
+        MovieRepositoryFactory.repository.findFavorite(
             id = id,
             onFound = {
                 disableAddToFavoritesButton()

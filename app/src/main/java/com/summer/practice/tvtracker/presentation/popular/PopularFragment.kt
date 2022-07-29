@@ -23,7 +23,7 @@ class PopularFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        MovieRepositoryFactory.createRepository().getMovies(
+        MovieRepositoryFactory.repository.getMovies(
             "popular",
             onSuccess = ::onPopularMoviesFetched,
             onError = ::onError
