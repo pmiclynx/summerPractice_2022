@@ -10,11 +10,8 @@ import com.summer.practice.tvtracker.data.MovieRepositoryFactory
 import com.summer.practice.tvtracker.data.networking.createPathList
 import com.summer.practice.tvtracker.data.networking.makeToast
 import com.summer.practice.tvtracker.databinding.ActivityDetailsBinding
-import com.summer.practice.tvtracker.db.findFavorites
-import com.summer.practice.tvtracker.db.getFavoritesCollection
 import com.summer.practice.tvtracker.domain.Detail
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
+import com.summer.practice.tvtracker.domain.FavoriteMovie
 
 
 class DetailsActivity : AppCompatActivity() {
@@ -34,24 +31,21 @@ class DetailsActivity : AppCompatActivity() {
         setContentView(view)
 
         binding.addToFavoritesButton.setOnClickListener {
-
-            val favorite = hashMapOf(
-                "id" to id.toString(),
-                "title" to binding.title.text,
-                "backdropUrl" to backDropUrl,
-                "dateTimeStamp" to LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
-                    .toString()
+            val favoriteMovie = FavoriteMovie(
+                id = id,
+                title = binding.title.text.toString(),
+                imageUrl = backDropUrl,
+                dateAdded = ""
             )
 
-            getFavoritesCollection()
-                .add(favorite)
-                .addOnSuccessListener {
+            MovieRepositoryFactory.createRepository().addFavorite(
+                favoriteMovie = favoriteMovie,
+                onSuccess = {
                     disableAddToFavoritesButton()
-                    makeToast(this, "Saved to favorites")
-                }
-                .addOnFailureListener {
-                    makeToast(this, "Error adding document")
-                }
+                    makeToast(this, it)
+                },
+                onError = { makeToast(this, it) }
+            )
         }
 
         binding.backArrow.setOnClickListener {
@@ -91,7 +85,7 @@ class DetailsActivity : AppCompatActivity() {
     }
 
     private fun disableButtonIfAlreadyFavorite() {
-        findFavorites(
+        MovieRepositoryFactory.createRepository().findFavorite(
             id = id,
             onFound = {
                 disableAddToFavoritesButton()

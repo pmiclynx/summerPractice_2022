@@ -4,6 +4,6 @@ import com.summer.practice.tvtracker.domain.MovieRepository
 
 object MovieRepositoryFactory {
     fun createRepository(): MovieRepository {
-        return ImplMovieRepository(TheMovieDbDataSource())
+        return ImplMovieRepository(TheMovieDbDataSource(), FirebaseFavoriteMovieDataSource())
     }
 }

@@ -6,10 +6,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.summer.practice.tvtracker.R
+import com.summer.practice.tvtracker.data.MovieRepositoryFactory
 import com.summer.practice.tvtracker.databinding.ItemFavoriteMovieBinding
 import com.summer.practice.tvtracker.databinding.ItemLastFavoriteMovieBinding
-import com.summer.practice.tvtracker.db.deleteFromFavorites
-import com.summer.practice.tvtracker.db.findFavorites
 import com.summer.practice.tvtracker.domain.FavoriteMovie
 
 class FavoriteMovieAdapter(
@@ -29,16 +28,19 @@ class FavoriteMovieAdapter(
 
     abstract class GenericViewHolder(itemView: View?) :
         RecyclerView.ViewHolder(itemView!!) {
-        abstract fun bind(movie: FavoriteMovie, itemClickListener: ItemClickListener, itemDeleteListener: ItemDeleteListener)
+        abstract fun bind(
+            movie: FavoriteMovie,
+            itemClickListener: ItemClickListener,
+            itemDeleteListener: ItemDeleteListener
+        )
 
         protected fun deleteFromFavorites(
             movie: FavoriteMovie,
             itemDeleteListener: ItemDeleteListener
         ) {
-            findFavorites(
-                id = movie.id,
-                onFound = ::deleteFromFavorites
-            )
+            MovieRepositoryFactory.createRepository()
+                .deleteFavorite(movie.id.toString())
+
             itemDeleteListener.onItemDeleted(movie)
         }
     }
@@ -64,6 +66,7 @@ class FavoriteMovieAdapter(
             binding.textViewDate.text = movie.dateAdded
         }
     }
+
     class LastMovieViewHolder(view: View, private val binding: ItemLastFavoriteMovieBinding) :
         GenericViewHolder(binding.root) {
         override fun bind(
@@ -96,12 +99,11 @@ class FavoriteMovieAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GenericViewHolder {
-        if(viewType == items.size-1){
+        if (viewType == items.size - 1) {
             val view: View = LayoutInflater.from(parent.context)
                 .inflate(R.layout.item_last_favorite_movie, parent, false)
             return LastMovieViewHolder(view, ItemLastFavoriteMovieBinding.bind(view))
-        }
-        else {
+        } else {
             val view: View = LayoutInflater.from(parent.context)
                 .inflate(R.layout.item_favorite_movie, parent, false)
             return MovieViewHolder(view, ItemFavoriteMovieBinding.bind(view))

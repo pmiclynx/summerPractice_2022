@@ -7,13 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.summer.practice.tvtracker.data.MovieRepositoryFactory
+import com.summer.practice.tvtracker.data.networking.makeToast
 import com.summer.practice.tvtracker.databinding.FragmentFavoritesBinding
-import com.summer.practice.tvtracker.db.getFavoritesCollection
 import com.summer.practice.tvtracker.domain.FavoriteMovie
 import com.summer.practice.tvtracker.presentation.details.DetailsActivity
-import com.summer.practice.tvtracker.data.networking.makeToast
 
-class FavoritesFragment: Fragment() {
+class FavoritesFragment : Fragment() {
     private lateinit var binding: FragmentFavoritesBinding
 
     override fun onCreateView(
@@ -44,24 +44,11 @@ class FavoritesFragment: Fragment() {
     private fun getData(
         onSuccess: (List<FavoriteMovie>) -> Unit
     ) {
-        val list= mutableListOf<FavoriteMovie>()
-        getFavoritesCollection()
-            .get()
-            .addOnSuccessListener { result ->
-                for (document in result) {
-                    list.add(
-                        FavoriteMovie(
-                            id = Integer.parseInt(document.data["id"] as String),
-                            title = document.data["title"] as String,
-                            dateAdded = document.data["dateTimeStamp"] as String,
-                            imageUrl = document.data["backdropUrl"] as String
-                        )
-                    )
-                }
-                onSuccess.invoke(list)
-            }
-            .addOnFailureListener {
-                makeToast(requireActivity(), "Error getting documents.")
-            }
+        MovieRepositoryFactory.createRepository()
+            .getFavorites(
+                onSuccess = onSuccess,
+                onError = {
+                    makeToast(requireActivity(), it)
+                })
     }
 }
